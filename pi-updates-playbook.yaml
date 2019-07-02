@@ -1,0 +1,22 @@
+---
+#ansible-playbook ~/ansible/misc-automation/pi-updates-playbook.yaml -k -i ~/ansible/local-inventory.yaml
+- name: Ansible playbook to update Raspberry Pis on LAN
+
+  hosts: pi
+  tasks:
+
+# Run apt-get update and apt-get upgrade 
+# Depends on: none
+#   
+
+    # Update apt packages
+    - name: Update apt packages
+      become: yes
+      apt: 
+        update_cache=yes
+    
+    # Upgrade apt packages
+    - name: Upgrade apt packages
+      become: yes
+      apt: 
+        upgrade=dist

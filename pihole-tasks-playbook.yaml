@@ -1,0 +1,41 @@
+---
+#ansible-playbook ~/ansible/misc-automation/pihole-tasks-playbook.yaml -k -i ~/ansible/local-inventory.yaml --tags (white|black|update|gravity) -e domain=FQDN
+#-e option is only required for white or black tags
+- name: Ansible playbook to update whitelist or blacklist based on tags called with domain passed from shell
+
+  hosts: piholes
+  tasks:
+
+#   
+
+    # whitelist domain
+    - name: Whitelist domain passed from CLI
+      become: no
+      shell: 
+        pihole -w {{ domain }}
+      tags: 
+      - white
+    
+    # blacklist domain
+    - name: Blacklist domain passed from CLI
+      become: no
+      shell: 
+        pihole -b {{ domain }}
+      tags: 
+      - black
+
+    # update pihole code
+    - name: Update pihole
+      become: no
+      shell: 
+        pihole -up
+      tags: 
+      - update
+
+    # update gravity
+    - name: Update gravity for piholes
+      become: no
+      shell: 
+        pihole -g
+      tags: 
+      - gravity
