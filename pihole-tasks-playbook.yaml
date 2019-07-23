@@ -39,3 +39,31 @@
         pihole -g
       tags: 
       - gravity
+
+    - name: Disable PiHole Logs
+      become: no
+      shell: 
+        pihole -l off
+      tags: 
+      - disable_logs
+
+    - name: Enable PiHole Logs
+      become: no
+      shell: 
+        pihole -l on
+      tags: 
+      - enable_logs
+
+    - name: Flush PiHole Logs
+      become: no
+      shell: 
+        pihole -f
+      tags: 
+      - flush_logs
+
+    - name: Restart PiHole DNS
+      become: no
+      shell: 
+        pihole restartdns
+      tags: 
+      - restart_dns
