@@ -1,5 +1,5 @@
 ---
-#ansible-playbook ~/ansible/misc-automation/pihole-tasks-playbook.yaml -k -i ~/ansible/local-inventory.yaml --tags (white|black|update|gravity) -e domain=FQDN
+#ansible-playbook ~/ansible/misc-automation/pihole-tasks-playbook.yaml -k -i ~/ansible/local-inventory.yaml --tags (white|black|update|gravity|restart_dns|disable_logs|enable_logs|flush_logs) -e domain=FQDN
 #-e option is only required for white or black tags
 - name: Ansible playbook to update whitelist or blacklist based on tags called with domain passed from shell
 
@@ -39,3 +39,31 @@
         pihole -g
       tags: 
       - gravity
+
+    - name: Disable PiHole Logs
+      become: no
+      shell: 
+        pihole -l off
+      tags: 
+      - disable_logs
+
+    - name: Enable PiHole Logs
+      become: no
+      shell: 
+        pihole -l on
+      tags: 
+      - enable_logs
+
+    - name: Flush PiHole Logs
+      become: no
+      shell: 
+        pihole -f
+      tags: 
+      - flush_logs
+
+    - name: Restart PiHole DNS
+      become: no
+      shell: 
+        pihole restartdns
+      tags: 
+      - restart_dns
