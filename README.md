@@ -32,3 +32,5 @@ Depending on your system and how heavily your Pi-hole is used, you may want to f
 ##### Credits
 
 https://discourse.pi-hole.net/t/the-pihole-command-with-examples/738
+
+##### validated in pihole v5
